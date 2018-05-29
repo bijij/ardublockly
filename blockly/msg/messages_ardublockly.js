@@ -178,3 +178,7 @@ Blockly.Msg.NEW_INSTANCE_TITLE = 'New instance name:';
 Blockly.Msg.RENAME_INSTANCE_TITLE = 'Rename all "%1" instances to:';
 
 Blockly.Msg.RAW_CODE_TOOLTIP = "Input raw C/C++ code...";
+
+
+/// Declair
+Blockly.Msg.ARD_FUN_RUN_DECLARE = 'Declarations:';
