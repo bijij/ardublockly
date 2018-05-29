@@ -110,7 +110,6 @@ Ardublockly.TOOLBOX_XML =
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catVariables" name="Variables">' +
-
 '    <block type="variables_get"></block>' +
 '    <block type="variables_set"></block>' +
 '    <block type="variables_set">' +
@@ -119,10 +118,6 @@ Ardublockly.TOOLBOX_XML =
 '      </value>' +
 '    </block>' +
 '    <block type="variables_set_type"></block>' +
-'    <block type="logic_boolean"></block>' +
-'    <block type="logic_null"></block>' +
-'    <block type="math_number"></block>' +
-'    <block type="text"></block>' +
 '  </category>' +
 '  <sep></sep>' +
 '  <category id="catFunctions" name="Functions" custom="PROCEDURE"></category>' +
@@ -179,25 +174,6 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="infinite_loop"></block>' +
 '  </category>' +
 '  <sep></sep>' +
-
-'  <category id="catKeyboard" name="Keyboard">' +
-'    <block type="presskey_textinput"></block>' +
-'    <block type="releasekey_textinput"></block>' +
-'    <block type="releasekey_allkeys"></block>' +
-'    <block type="writekey_textinput"></block>' +
-'  </category>' +
-'  <sep></sep>' +
-
-'  <category id="catMouse" name="Mouse">' +
-'    <block type="clickmouse"></block>' +
-'    <block type="movemouse"></block>' +
-'    <block type="pressmouse"></block>' +
-'    <block type="releasemouse"></block>' +
-'    <block type="mouse_ispressed"></block>' +
-'  </category>' +
-'  <sep></sep>' +
-
-
 '  <category id="catAudio" name="Audio">' +
 '    <block type="io_tone">' +
 '      <field name="TONEPIN">0</field>' +
