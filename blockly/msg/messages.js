@@ -1122,5 +1122,4 @@ Blockly.Msg.PROCEDURES_IFRETURN_HELPURL = 'http://c2.com/cgi/wiki?GuardClause';
 Blockly.Msg.PROCEDURES_IFRETURN_WARNING = 'Warning: This block may be used only within a function definition.';
 
 
-
-Blockly.Msg.RAW_CODE_TOOLTIP = 'Raw code input';
+Blockly.Msg.RAW_CODE_TOOLTIP = "Input raw C/C++ code...";
