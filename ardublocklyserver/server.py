@@ -365,58 +365,56 @@ def handler_code_not_allowed():
 
 @app.post('/code')
 def handler_code_post():
-    """Handle sent Arduino Sketch code.
+    tempDir = tempfile.mkdtemp()
+    currentWorkingDirectory = os.getcwd()
+    up = uploader.uploader()
+    sketchName = "sketch.ino"
+    selectedBoard = actions.get_arduino_board_selected()
+    qualifiedArduinoName = ""
+    boardArchi = ""
+    
+    port = handler_settings_get_individual("serial")["options"][0]["display_text"]
+    with open(os.path.join(currentWorkingDirectory, "buildingTools", "arduinos.csv")) as arduinoFile:
+        for line in arduinoFile:
+            splitLine = line.split(",")
+            if splitLine[0] == selectedBoard:
+                qualifiedArduinoName = splitLine[3].rstrip()
+                boardArchi = splitLine[2].rstrip()
+                
+    sketchCode = request.json['sketch_code']
+    os.mkdir(os.path.join(tempDir, "sketch"))
+    sketch = open(os.path.join(tempDir, "sketch", sketchName), "w+")
+    sketch.write(sketchCode)
+    sketch.close()
+    
 
-    Error codes:
-    0  - No error
-    1  - Build or Upload failed.
-    2  - Sketch not found.
-    3  - Invalid command line argument
-    4  - Preference passed to 'get-pref' flag does not exist
-    5  - Not Clear, but Arduino IDE sometimes errors with this.
-    50 - Unexpected error code from Arduino IDE
-    51 - Could not create sketch file
-    52 - Invalid path to internally created sketch file
-    53 - Compiler directory not configured in the Settings
-    54 - Launch IDE option not configured in the Settings
-    55 - Serial Port configured in Settings not accessible.
-    56 - Arduino Board not configured in the Settings.
-    52 - Unexpected server error.
-    64 - Unable to parse sent JSON.
-    """
-    success = False
-    ide_mode = 'unknown'
-    std_out, err_out = '', ''
-    exit_code = 52
+    
+    up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
+                  os.path.join(currentWorkingDirectory, "buildingTools", "hardware"), 
+                  os.path.join(currentWorkingDirectory, "buildingTools", "tools"), 
+                  os.path.join(currentWorkingDirectory, "buildingTools", "hardware/tools"), 
+                  os.path.join(currentWorkingDirectory, "buildingTools", "libraries"), 
+                  tempDir,
+                  qualifiedArduinoName)
+                  
+    up.UploadSketch(os.path.join(tempDir, 
+                    (sketchName + ".hex")),
+                    boardArchi, 
+                    port)
+
+    
     response_dict = {'response_type': 'ide_output',
                      'response_state': 'full_response'}
-    try:
-        sketch_code = request.json['sketch_code']
-    except (TypeError, ValueError, KeyError) as e:
-        exit_code = 64
-        err_out = 'Unable to parse sent JSON.'
-        print('Error: Unable to parse sent JSON:\n%s' % str(e))
-    else:
-        try:
-            success, ide_mode, std_out, err_out, exit_code = \
-                actions.arduino_ide_send_code(sketch_code)
-        except Exception as e:
-            exit_code = 52
-            err_out += 'Unexpected server error.'
-            print('Error: Exception in arduino_ide_send_code:\n%s' % str(e))
-
+                     
+    std_out, err_out = '',''
+    success = True
+    exit_code = 0
+    ide_mode = 'unknown'
     response_dict.update({'success': success,
-                          'ide_mode': ide_mode,
-                          'ide_data': {
-                              'std_output': std_out,
-                              'err_output': err_out,
-                              'exit_code': exit_code}})
-    if not success:
-        response_dict.update({
-            'errors': [{
-                'id': exit_code,
-                'description': 'More info available in the \'ide_data\' value.'
-            }]
-        })
-    set_header_no_cache()
+        'ide_mode': ide_mode,
+        'ide_data': {
+            'std_output': std_out,
+            'err_output': err_out,
+            'exit_code': exit_code}})
+                     
     return response_dict
