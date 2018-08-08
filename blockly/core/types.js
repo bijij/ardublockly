@@ -13,13 +13,6 @@ goog.provide('Blockly.Types');
 
 goog.require('Blockly.Type');
 
-/** Raw code */
-Blockly.Types.RAWCODE = new Blockly.Type({
-  typeId: 'Raw Code',
-  typeMsgName: 'ARD_TYPE_RAW_CODE',
-  compatibleTypes: []
-});
-
 /** Single character. */
 Blockly.Types.CHARACTER = new Blockly.Type({
   typeId: 'Character',

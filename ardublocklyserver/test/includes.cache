@@ -1,0 +1,17 @@
+[
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "A:\\Lib\\Downloads\\ardublockly-master\\ardublockly-master\\ardublocklyserver\\hardware\\arduino\\avr\\cores\\arduino"
+  },
+  {
+    "Sourcefile": "",
+    "Include": "",
+    "Includepath": "A:\\Lib\\Downloads\\ardublockly-master\\ardublockly-master\\ardublocklyserver\\hardware\\arduino\\avr\\variants\\standard"
+  },
+  {
+    "Sourcefile": "A:\\Lib\\Downloads\\ardublockly-master\\ardublockly-master\\ardublocklyserver\\test\\sketch\\sketch.ino.cpp",
+    "Include": "",
+    "Includepath": ""
+  }
+]

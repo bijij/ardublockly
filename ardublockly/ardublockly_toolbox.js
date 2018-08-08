@@ -255,9 +255,4 @@ Ardublockly.TOOLBOX_XML =
 '    <block type="spi_transfer"></block>' +
 '    <block type="spi_transfer_return"></block>' +
 '  </category>' +
-'  <category id="catRawCode" name="Raw Code">' +
-'    <block type="raw_func"></block>' +
-'    <block type="raw_code"></block>' +
-'    <block type="raw_output"></block>' +
-'  </category>' +
 '</xml>';

@@ -1,0 +1,10 @@
+{
+  "builtInLibrariesFolders": "",
+  "customBuildProperties": "",
+  "fqbn": "arduino:avr:uno",
+  "hardwareFolders": "A:\\Lib\\Downloads\\ardublockly-master\\ardublockly-master\\ardublocklyserver\\hardware",
+  "otherLibrariesFolders": "A:\\Lib\\Downloads\\ardublockly-master\\ardublockly-master\\ardublocklyserver\\libraries",
+  "runtime.ide.version": "10600",
+  "sketchLocation": "A:\\Lib\\Downloads\\ardublockly-master\\ardublockly-master\\ardublocklyserver\\sketch.ino",
+  "toolsFolders": "hardware/tools,tools"
+}
