@@ -99,8 +99,6 @@ Blockly.Arduino.init = function(workspace) {
   Blockly.Arduino.codeFunctions_ = Object.create(null);
   // Create a dictionary of functions created by the user
   Blockly.Arduino.userFunctions_ = Object.create(null);
-  // Add user generated code block suport
-  Blockly.Arduino.userCode_ = Object.create(null);
   // Create a dictionary mapping desired function names in definitions_
   // to actual function names (to avoid collisions with user functions)
   Blockly.Arduino.functionNames_ = Object.create(null);

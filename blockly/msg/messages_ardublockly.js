@@ -176,9 +176,3 @@ Blockly.Msg.RENAME_INSTANCE = 'Rename instance...';
 Blockly.Msg.NEW_INSTANCE_TITLE = 'New instance name:';
 /// Instances - Confirmation message that a number of instances will be renamed to a new name
 Blockly.Msg.RENAME_INSTANCE_TITLE = 'Rename all "%1" instances to:';
-
-Blockly.Msg.RAW_CODE_TOOLTIP = "Input raw C/C++ code...";
-
-
-/// Declair
-Blockly.Msg.ARD_FUN_RUN_DECLARE = 'Declarations:';

@@ -8,9 +8,11 @@ Licensed under the Apache License, Version 2.0 (the "License"):
 from __future__ import unicode_literals, absolute_import, print_function
 import os
 import sys
+import tempfile
 # local-packages imports
 from bottle import request, response
 from bottle import static_file, run, default_app, redirect, abort
+from buildingTools import uploader
 # Python 2 and 3 compatibility imports
 from six import iteritems
 # This package modules
@@ -365,7 +367,69 @@ def handler_code_not_allowed():
 
 @app.post('/code')
 def handler_code_post():
-    """Handle sent Arduino Sketch code.
+	tempDir = tempfile.mkdtemp()
+	currentWorkingDirectory = os.getcwd()
+	up = uploader.uploader()
+	sketchName = "sketch.ino"
+	selectedBoard = actions.get_arduino_board_selected()
+	qualifiedArduinoName = ""
+	boardArchi = ""
+	
+	port = handler_settings_get_individual("serial")["options"][0]["display_text"]
+	with open(os.path.join(currentWorkingDirectory, "buildingTools", "arduinos.csv")) as arduinoFile:
+		for line in arduinoFile:
+			splitLine = line.split(",")
+			if splitLine[0] == selectedBoard:
+				qualifiedArduinoName = splitLine[3].rstrip()
+				boardArchi = splitLine[2].rstrip()
+				
+	sketchCode = request.json['sketch_code']
+	os.mkdir(os.path.join(tempDir, "sketch"))
+	sketch = open(os.path.join(tempDir, "sketch", sketchName), "w+")
+	sketch.write(sketchCode)
+	sketch.close()
+	
+
+	
+	up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
+				  os.path.join(currentWorkingDirectory, "buildingTools", "hardware"), 
+				  os.path.join(currentWorkingDirectory, "buildingTools", "tools"), 
+				  os.path.join(currentWorkingDirectory, "buildingTools", "hardware/tools"), 
+				  os.path.join(currentWorkingDirectory, "buildingTools", "libraries"), 
+				  tempDir,
+				  qualifiedArduinoName)
+				  
+	up.UploadSketch(os.path.join(tempDir, 
+				    (sketchName + ".hex")),
+					boardArchi, 
+					port)
+
+	
+	response_dict = {'response_type': 'ide_output',
+                     'response_state': 'full_response'}
+					 
+	std_out, err_out = '',''
+	success = True
+	exit_code = 0
+	ide_mode = 'unknown'
+	response_dict.update({'success': success,
+		'ide_mode': ide_mode,
+		'ide_data': {
+			'std_output': std_out,
+			'err_output': err_out,
+			'exit_code': exit_code}})
+					 
+	return response_dict
+
+
+
+
+
+
+
+
+"""def handler_code_post():
+    Handle sent Arduino Sketch code.
 
     Error codes:
     0  - No error
@@ -383,7 +447,7 @@ def handler_code_post():
     56 - Arduino Board not configured in the Settings.
     52 - Unexpected server error.
     64 - Unable to parse sent JSON.
-    """
+    
     success = False
     ide_mode = 'unknown'
     std_out, err_out = '', ''
@@ -419,4 +483,4 @@ def handler_code_post():
             }]
         })
     set_header_no_cache()
-    return response_dict
+    return response_dict"""
