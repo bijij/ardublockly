@@ -374,44 +374,53 @@ def handler_code_post():
 	selectedBoard = actions.get_arduino_board_selected()
 	qualifiedArduinoName = ""
 	boardArchi = ""
-	
-	port = handler_settings_get_individual("serial")["options"][0]["display_text"]
-	with open(os.path.join(currentWorkingDirectory, "buildingTools", "arduinos.csv")) as arduinoFile:
-		for line in arduinoFile:
-			splitLine = line.split(",")
-			if splitLine[0] == selectedBoard:
-				qualifiedArduinoName = splitLine[3].rstrip()
-				boardArchi = splitLine[2].rstrip()
-				
-	sketchCode = request.json['sketch_code']
-	os.mkdir(os.path.join(tempDir, "sketch"))
-	sketch = open(os.path.join(tempDir, "sketch", sketchName), "w+")
-	sketch.write(sketchCode)
-	sketch.close()
-	
 
-	
-	up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
-				  os.path.join(currentWorkingDirectory, "buildingTools", "hardware"), 
-				  os.path.join(currentWorkingDirectory, "buildingTools", "tools"), 
-				  os.path.join(currentWorkingDirectory, "buildingTools", "hardware/tools"), 
-				  os.path.join(currentWorkingDirectory, "buildingTools", "libraries"), 
-				  tempDir,
-				  qualifiedArduinoName)
-				  
-	up.UploadSketch(os.path.join(tempDir, 
-				    (sketchName + ".hex")),
-					boardArchi, 
-					port)
 
-	
-	response_dict = {'response_type': 'ide_output',
-                     'response_state': 'full_response'}
-					 
 	std_out, err_out = '',''
 	success = True
 	exit_code = 0
 	ide_mode = 'unknown'
+	
+	try:
+		port = handler_settings_get_individual("serial")["options"][0]["display_text"]
+
+	#print("port: " + port)
+
+		with open(os.path.join(currentWorkingDirectory, "buildingTools", "arduinos.csv")) as arduinoFile:
+			for line in arduinoFile:
+				splitLine = line.split(",")
+				if splitLine[0] == selectedBoard:
+					qualifiedArduinoName = splitLine[3].rstrip()
+					boardArchi = splitLine[2].rstrip()
+					
+		sketchCode = request.json['sketch_code']
+		os.mkdir(os.path.join(tempDir, "sketch"))
+		sketch = open(os.path.join(tempDir, "sketch", sketchName), "w+")
+		sketch.write(sketchCode)
+		sketch.close()
+		
+
+		
+		up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
+					  os.path.join(currentWorkingDirectory, "buildingTools", "hardware"), 
+					  os.path.join(currentWorkingDirectory, "buildingTools", "tools"), 
+					  os.path.join(currentWorkingDirectory, "buildingTools", "hardware/tools"), 
+					  os.path.join(currentWorkingDirectory, "buildingTools", "libraries"), 
+					  tempDir,
+					  qualifiedArduinoName)
+					  
+		up.UploadSketch(os.path.join(tempDir, 
+					    (sketchName + ".hex")),
+						boardArchi, 
+						port)
+						 
+	except IndexError:
+		success = False
+		exit_code = 300
+		err_out = "Port not selected!"
+
+	response_dict = {'response_type': 'ide_output',
+             		 'response_state': 'full_response'}
 	response_dict.update({'success': success,
 		'ide_mode': ide_mode,
 		'ide_data': {
