@@ -1134,6 +1134,9 @@ Blockly.Block.prototype.interpolate_ = function(message, args, lastDummyAlign) {
               field.setSpellcheck(element['spellcheck']);
             }
             break;
+          case 'field_textarea':
+            field = new Blockly.FieldTextArea(element['text']);
+            break;
           case 'field_angle':
             field = new Blockly.FieldAngle(element['angle']);
             break;
