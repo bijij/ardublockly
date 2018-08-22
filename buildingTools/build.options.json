@@ -1,6 +1,0 @@
-{
-  "builtInLibrariesFolders": "libraries",
-  "fqbn": "arduino:avr:uno",
-  "hardwareFolders": "hardware",
-  "toolsFolders": "tools"
-}
