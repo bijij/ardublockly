@@ -46,11 +46,10 @@ class uploader:
         # self.outputDirectory = outputDirectory
 
         output = subprocess.check_call([os.path.join("buildingTools",self.compilerName),
-                                        "-hardware", hardwarePath,
-                                        "-tools", tools,
-                                        "-tools", hardwareTools,
-                                        #"-tools"
-                                        "-libraries", libraryPath,
+                                        "-hardware", os.path.join("buildingTools",hardwarePath),
+                                        "-tools", os.path.join("buildingTools",tools),
+                                        "-tools", os.path.join("buildingTools",hardwareTools),
+                                        "-libraries", os.path.join("buildingTools",libraryPath),
                                         "-fqbn", qualifiedArduinoName,
                                         "-build-path", outputDirectory,
                                         sketchName
@@ -68,7 +67,7 @@ class uploader:
         output = subprocess.check_call([os.path.join("buildingTools",self.uploaderName),
                                         "-p", arduinoArchitecture,
                                         "-c", "arduino",
-                                        "-C", uploaderConfigFilePath,
+                                        "-C", os.path.join("buildingTools",uploaderConfigFilePath),
                                         "-P", arduinoPort,
                                         "-U", hexProcessing
                                        ])
