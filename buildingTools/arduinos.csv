@@ -1,0 +1,14 @@
+Gemma,gemma,t85,arduino:avr:gemma
+LilyPad,lilypad,m328p,arduino:avr:lilypad
+LilyPad USB,LilyPadUSB,m32u4,arduino:avr:LilyPadUSB
+Mega 2560,mega,m2560,arduino:avr:mega
+Micro,micro,m32u4,arduino:avr:micro
+Pro/Pro Mini,pro,m328p,arduino:avr:pro
+Uno,uno,m328p,arduino:avr:uno
+Esplora,esplora,m32u4,arduino:avr:esplora
+Ethernet,ethernet,m328p,arduino:avr:ethernet
+Leonardo,leonardo,m32u4,arduino:avr:leonardo
+Mega ADK,megaADK,m2560,arduino:avr:megaADK
+Mini,mini,m328p,arduino:avr:mini
+Nano,nano,m328p,arduino:avr:nano
+Yun,yun,m32u4,arduino:avr:yun
