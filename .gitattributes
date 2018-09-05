@@ -1,0 +1,10 @@
+*.conf binary
+*.exe binary
+*.dll binary
+*.bin binary
+*.c binary
+*.cpp binary
+*.hex binary
+*.o binary
+*.h binary
+*.elf binary

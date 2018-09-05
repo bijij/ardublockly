@@ -55,7 +55,7 @@ class uploader:
                                         sketchName
                                         ])
 
-        print(output)
+        return(output)
 
 
     def UploadSketch(self, hexName, arduinoArchitecture, arduinoPort, uploaderConfigFilePath = "buildingTools\\avrdude.conf"):
@@ -73,7 +73,7 @@ class uploader:
                                        ])
 
 
-        print(output)
+        return(output)
 
 
 

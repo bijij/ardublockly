@@ -376,7 +376,7 @@ def handler_code_post():
 	qualifiedArduinoName = ""
 	boardArchi = ""
 
-
+	port = ''
 	std_out, err_out = '',''
 	success = True
 	exit_code = 0
@@ -388,6 +388,8 @@ def handler_code_post():
 		for portDict in settingsDict["options"]:
 			if portDict["value"] == selectedVal:
 				port = portDict["display_text"]
+		if port == '':
+			raise Exception("Please plug in an arduino, or select the correct port.")
 
 		with open(os.path.join(currentWorkingDirectory, "buildingTools", "arduinos.csv")) as arduinoFile:
 			for line in arduinoFile:
@@ -397,7 +399,6 @@ def handler_code_post():
 					boardArchi = splitLine[2].rstrip()
 		if qualifiedArduinoName	== "" or boardArchi == "":
 				raise ValueError()
-
 		sketchCode = request.json['sketch_code']
 		os.mkdir(os.path.join(tempDir, "sketch"))
 		sketch = open(os.path.join(tempDir, "sketch", sketchName), "w+")
@@ -405,19 +406,24 @@ def handler_code_post():
 		sketch.close()
 		
 		#print(os.path.join(tempDir, "sketch", sketchName))
-		up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
-					  os.path.join(currentWorkingDirectory, "buildingTools", "hardware"), 
-					  os.path.join(currentWorkingDirectory, "buildingTools", "tools"), 
-					  os.path.join(currentWorkingDirectory, "buildingTools", "hardware\\tools"), 
-					  os.path.join(currentWorkingDirectory, "buildingTools", "libraries"), 
-					  tempDir,
-					  qualifiedArduinoName)
+		loadingOutput = up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
+						os.path.join(currentWorkingDirectory, "buildingTools", "hardware"), 
+						os.path.join(currentWorkingDirectory, "buildingTools", "tools"), 
+						os.path.join(currentWorkingDirectory, "buildingTools", "hardware\\tools"), 
+						os.path.join(currentWorkingDirectory, "buildingTools", "libraries"), 
+						tempDir,
+						qualifiedArduinoName)
 					  
-		up.UploadSketch(os.path.join(tempDir, 
-						(sketchName + ".hex")),
-						boardArchi, 
-						port)
-						 
+		uploadingOutput = up.UploadSketch(os.path.join(tempDir, 
+							(sketchName + ".hex")),
+							boardArchi, 
+							port)
+		print(uploadingOutput)
+		print(loadingOutput)
+
+
+
+	#print(uploadingOutput)					 
 	# except IndexError:
 	# 	success = False
 	# 	exit_code = 300
@@ -426,6 +432,11 @@ def handler_code_post():
 		success = False
 		exit_code = 400
 		err_out = "Please specify a supported arduino."
+
+	except Exception:# as error:
+		success = False
+		exit_code = 300
+		#err_out = error
 
 	response_dict = {'response_type': 'ide_output',
 					 'response_state': 'full_response'}
