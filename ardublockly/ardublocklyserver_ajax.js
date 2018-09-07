@@ -340,3 +340,7 @@ ArdublocklyServer.sendSketchToServer = function(code, callback) {
   ArdublocklyServer.sendRequest(
       '/code', 'POST', 'application/json', {"sketch_code": code}, callback);
 };
+
+ArdublocklyServer.sendBlockXMLToServer = function(XML) {
+  alert(XML);
+};
