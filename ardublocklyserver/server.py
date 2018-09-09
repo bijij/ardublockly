@@ -12,6 +12,7 @@ import sys
 import tempfile
 import subprocess
 import re
+
 # local-packages imports
 from bottle import request, response
 from bottle import static_file, run, default_app, redirect, abort
@@ -20,6 +21,7 @@ from buildingTools import uploader
 from six import iteritems
 # This package modules
 from ardublocklyserver import actions
+from ardublocklyserver import render
 
 
 #
@@ -379,19 +381,12 @@ def generate_block_xml():
 
 	# Render XML
     p = subprocess.Popen(
-        ['renderTools/srcml.exe', 'code.c', '-o code.xml'], cwd="renderTools\\temp")
+        ['renderTools/srcml.exe', 'code.c', '-o code.xml', '--no-namespace-decl'], cwd="renderTools\\temp")
     p.wait()
 
-	# Load XML from file
-    with open('renderTools/temp/ code.xml') as f:
-        xml = f.read()
-
-    block_code = ''
-
-	#TODO BLOCK CREATION CODE
-
+	# Return the formatted XML
     response_dict = {'response_type': 'ide_output',
-                     'response_state': 'full_response', 'block_code': block_code}
+                     'response_state': 'full_response', 'block_code': render.render_xml('renderTools/temp/ code.xml')}
 
     return response_dict
 
