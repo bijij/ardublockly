@@ -3,6 +3,30 @@ import xml.etree.ElementTree as ET
 import xml.dom.minidom as minidom
 
 
+def render_value(block, value):
+    """Renderes a value and appends it to the block"""
+
+    # if value is int
+    try:
+        int(value)
+        new_block = ET.SubElement(block, 'block')
+        new_block.set('type', 'math_number')
+        field = ET.SubElement(new_block, 'field')
+        field.set('name', 'NUM')
+        field.text = value
+
+        return
+    except:
+        pass
+
+    # otherwise render as raw code
+    new_block = ET.SubElement(block, 'block')
+    new_block.set('type', 'raw_output')
+    field = ET.SubElement(new_block, 'field')
+    field.set('name', 'CODE')
+    field.text = value
+
+
 def render_block(stack, code):
     """Renders a block and appends it to the stack"""
 
@@ -16,26 +40,25 @@ def render_block(stack, code):
         def add_condition(block, code, name):
             if_tag = ET.SubElement(block, 'value')
             if_tag.set('name', name)
-
-            condition = ET.SubElement(if_tag, 'block')
-            condition.set('type', 'raw_output')
-
-            field = ET.SubElement(condition, 'field')
-            field.set('name', 'CODE')
-
-            field.text = ET.tostring(
-                code.find('condition'), encoding='unicode', method='text')[1:-1]
+            render_value(if_tag, ET.tostring(code.find('condition'),
+                                             encoding='unicode', method='text')[1:-1])
 
         def add_statement(block, code, name):
             do_tag = ET.SubElement(block, 'statement')
             do_tag.set('name', name)
             render_blocks(do_tag, code)
 
-        mutations = [-1, 0]
+        mutations = [0, 0]
         block.set('type', 'controls_if')
 
-        # add if statements
-        for child in code.iter('if'):
+        # initial if statement
+        add_condition(block, code, 'IF' + str(mutations[0]))
+        add_statement(block, code.find('then').find(
+            'block'), 'DO' + str(mutations[0]))
+
+        # add else statements
+        for child in code.findall('elseif'):
+            child = child.find('if')
             mutations[0] += 1
             add_condition(block, child, 'IF' + str(mutations[0]))
             add_statement(block, child.find('then').find(
@@ -53,9 +76,42 @@ def render_block(stack, code):
         block.insert(0, mutation)
 
     # for loop
-    #elif code.tag == "for":
-    #    pass
-    
+    elif code.tag == "for":
+        block.set('type', 'controls_for')
+
+        control = code.find('control')
+
+        # set the variable name
+        var = ET.SubElement(block, 'field')
+        var.set('name', 'VAR')
+        var.text = control[0][0][0].text
+
+        def add_value(block, value, name):
+            tag = ET.SubElement(block, 'value')
+            tag.set('name', name)
+            render_value(tag, value)
+
+        # set the from
+        add_value(block, control[0][0][2].text, 'FROM')
+        # set the to
+        add_value(block, control[1][0][2].text, 'TO')
+
+        # set the by
+        # operator starts with -
+        if control[2][0][1].text in ["++", "--"]:
+            value = '1'
+        else:
+            value = control[2][0][2].text
+
+        add_value(block, value, 'BY')
+
+        # render the child elements
+        do_tag = ET.SubElement(block, 'statement')
+        do_tag.set('name', 'DO')
+        render_blocks(do_tag, code.find('block'))
+
+
+
     # otherwise render as raw code
     else:
         block.set('type', 'raw_code')
