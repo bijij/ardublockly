@@ -222,7 +222,7 @@ ul.side-nav li.side-menu-end {
   border-right: 0;
 }
 .ide_output_header_normal {
-  background-color: #006468;
+  background-color: #5074A8;
   color: #ffffff;
   -moz-transition: background-color 0.6s ease-in;;
   -o-transition: background-color 0.6s ease-in;
@@ -702,7 +702,7 @@ ul.side-nav li.side-menu-end {
 
 /* Blockly scrollbars */
 .blocklyScrollbarKnob {
-  fill: #00878F !important;
+  fill: #5074A8 !important;
   fill-opacity: 0.7 !important;
 }
 .blocklyScrollbarBackground {
