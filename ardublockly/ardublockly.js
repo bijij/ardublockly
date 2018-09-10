@@ -770,5 +770,8 @@ var translateBlocksReturn = function (jsonObj) {
 
 
 Ardublockly.translateBlocks = function () {
-  ArdublocklyServer.sendCodeToServer(Ardublockly.generateArduino(), translateBlocksReturn);
+  var text = document.getElementById('content_arduino').textContent;
+  ArdublocklyServer.sendCodeToServer(text, translateBlocksReturn);
+
+  //ArdublocklyServer.sendCodeToServer(Ardublockly.generateArduino(), translateBlocksReturn);
 }
