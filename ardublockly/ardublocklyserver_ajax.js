@@ -342,7 +342,7 @@ ArdublocklyServer.sendSketchToServer = function (code, callback) {
 };
 
 ArdublocklyServer.sendCodeToServer = function (code, callback) {
-  alert(code);
+  // DEBUG: alert(code);
 
   ArdublocklyServer.sendRequest(
     '/generate', 'POST', 'application/json', { "raw_code": code }, callback);
