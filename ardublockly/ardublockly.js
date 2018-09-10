@@ -764,8 +764,13 @@ Ardublockly.bindClick_ = function (el, func) {
 var translateBlocksReturn = function (jsonObj) {
   // DEBUG: alert(jsonObj['block_code']);
 
-  document.getElementById('content_xml').value = jsonObj['block_code'];
-  document.getElementById('button_load_xml').click();
+  if (!jsonObj['error']) {
+    document.getElementById('content_xml').value = jsonObj['block_code'];
+    document.getElementById('button_load_xml').click();
+  }
+  else {
+    alert('An error has occured...')
+  }
 }
 
 

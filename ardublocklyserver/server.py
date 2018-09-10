@@ -374,25 +374,31 @@ def generator_code_not_allowed():
 @app.post('/generate')
 def generate_block_xml():
 
-	# Save code to
+        # Save code to
     code = request.json['raw_code']
     with open('renderTools/temp/code.c', 'w') as f:
         f.write(code)
 
-	# Render XML
+        # Render XML
     p = subprocess.Popen(
         ['renderTools/srcml.exe', 'code.c', '-o code.xml', '--no-namespace-decl'], cwd="renderTools\\temp")
     p.wait()
 
-	# Return the formatted XML
+    try:
+        code = render.render_xml('renderTools/temp/ code.xml')
+        error = False
+    except:
+        error = True
+
+        # Return the formatted XML
     response_dict = {'response_type': 'ide_output',
-                     'response_state': 'full_response', 'block_code': render.render_xml('renderTools/temp/ code.xml')}
+                     'response_state': 'full_response', 'block_code': code, 'error': error}
 
     return response_dict
 
 #
 # Create and compile Arduino Sketch request handler. Only POST available.
-#
+# Arduino Uploader output
 
 
 @app.route('/code', method=['GET', 'PUT', 'PATCH', 'DELETE'])
