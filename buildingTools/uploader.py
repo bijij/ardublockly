@@ -2,50 +2,19 @@ import subprocess
 import os
 
 class uploader:
-    # locals
-
-    # for compiler
-    #compilerParameters = {"sketchName": "", "configFilePath": ""}
-    # sketchName = ""
-    # hardwarePath = ""
-    # toolPath = ""
-    # toolPath2 = ""
-    # libraryPath = ""
-    # qualifiedArduinoName = ""
-    # builderConfigFilePath = ""
-    # outputDirectory = ""
-
-    # for uploader
-    #uploaderParameters = {"hexName": "", "arduinoType": "", "arduinoPort": ""}
-    # hexName = ""
-    # arduinoArchitecture  = ""
-    # arduinoPort = ""
-    # uploaderConfigFilePath = ""
-
-
     # constants
     uploaderName = "avrdude.exe"
     compilerName = "arduino-builder.exe"
 
-    def __init__(self):
-        print("nice")
-        #pass
+    #def __init__(self):
 
     def LoadSketchWithDefaults(self, sketchName, builderConfigFilePath):
         self.sketchName = sketchName
         self.builderConfigFilePath = builderConfigFilePath
 
-
     def LoadSketch(self, sketchName, hardwarePath, tools, hardwareTools, libraryPath, outputDirectory, qualifiedArduinoName = "arduino:avr:uno"):
-        # self.sketchName = sketchName
-        # self.hardwarePath = hardwarePath
-        # self.toolPath = toolPath
-        # self.toolPath2 = toolPath2
-        # self.libraryPath = libraryPath
-        # self.qualifiedArduinoName = qualifiedArduinoName
-        # self.outputDirectory = outputDirectory
 
-        output = subprocess.check_call([os.path.join("buildingTools",self.compilerName),
+        output = subprocess.check_output([os.path.join("buildingTools",self.compilerName),
                                         "-hardware", os.path.join("buildingTools",hardwarePath),
                                         "-tools", os.path.join("buildingTools",tools),
                                         "-tools", os.path.join("buildingTools",hardwareTools),
@@ -58,13 +27,15 @@ class uploader:
         return(output)
 
 
-    def UploadSketch(self, hexName, arduinoArchitecture, arduinoPort, uploaderConfigFilePath = "buildingTools\\avrdude.conf"):
-        # self.hexName = hexName
-        # self.arduinoArchitecture = arduinoArchitecture
-        # self.arduinoPort = arduinoPort
+    def UploadSketch(self, hexName, arduinoArchitecture, arduinoPort, uploaderConfigFilePath = "avrdude.conf", verbosity = 0):
         hexProcessing = "flash:w:" + hexName + ":i"
+        
+        path = os.path.join("buildingTools", self.uploaderName)
 
-        output = subprocess.check_call([os.path.join("buildingTools",self.uploaderName),
+        for i in range(verbosity):
+        	path += " -v"
+
+        output = subprocess.check_output([path,										
                                         "-p", arduinoArchitecture,
                                         "-c", "arduino",
                                         "-C", os.path.join("buildingTools",uploaderConfigFilePath),

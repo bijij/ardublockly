@@ -444,13 +444,13 @@ def handler_code_post():
                     boardArchi = splitLine[2].rstrip()
         if qualifiedArduinoName == "" or boardArchi == "":
             raise ValueError()
+
         sketchCode = request.json['sketch_code']
         os.mkdir(os.path.join(tempDir, "sketch"))
         sketch = open(os.path.join(tempDir, "sketch", sketchName), "w+")
         sketch.write(sketchCode)
         sketch.close()
 
-        # print(os.path.join(tempDir, "sketch", sketchName))
         loadingOutput = up.LoadSketch(os.path.join(tempDir, "sketch", sketchName),
                                       os.path.join(
                                           currentWorkingDirectory, "buildingTools", "hardware"),
@@ -467,23 +467,22 @@ def handler_code_post():
                                                        (sketchName + ".hex")),
                                           boardArchi,
                                           port)
-        print(uploadingOutput)
-        print(loadingOutput)
+        #print(uploadingOutput)
+        #print(loadingOutput)
+        if "stk500_recv()".encode() in uploadingOutput:
+        	raise Exception("The arduino failed to sync (stk500_recv()), please try unplugging and replugging it in.")
+        else:
+        	std_out = loadingOutput.decode()# + "\t\t\t" + uploadingOutput.decode()
 
-    # print(uploadingOutput)
-    # except IndexError:
-    # 	success = False
-    # 	exit_code = 300
-    # 	err_out = "Port not selected!"
     except ValueError:
         success = False
         exit_code = 400
         err_out = "Please specify a supported arduino."
 
-    except Exception:  # as error:
+    except Exception as e:
         success = False
         exit_code = 300
-        # err_out = error
+        err_out = str(e)
 
     response_dict = {'response_type': 'ide_output',
                      'response_state': 'full_response'}
