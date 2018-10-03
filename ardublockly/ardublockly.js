@@ -40,6 +40,7 @@ Ardublockly.bindActionFunctions = function () {
   Ardublockly.bindClick_('button_load', Ardublockly.loadUserXmlFile);
   Ardublockly.bindClick_('button_save', Ardublockly.saveXmlFile);
   Ardublockly.bindClick_('button_delete', Ardublockly.discardAllBlocks);
+  Ardublockly.bindClick_('translate_button', Ardublockly.translateBlocks);
 
   // Side menu buttons, they also close the side menu
   Ardublockly.bindClick_('menu_load', function () {
@@ -803,8 +804,7 @@ var translateBlocksReturn = function (jsonObj) {
 
 
 Ardublockly.translateBlocks = function () {
-  var text = document.getElementById('content_arduino').textContent;
-  ArdublocklyServer.sendCodeToServer(text, translateBlocksReturn);
+  ArdublocklyServer.sendCodeToServer(editor.getValue(), translateBlocksReturn);
 
   //ArdublocklyServer.sendCodeToServer(Ardublockly.generateArduino(), translateBlocksReturn);
 }
