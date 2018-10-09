@@ -16,7 +16,7 @@ import re
 # local-packages imports
 from bottle import request, response
 from bottle import static_file, run, default_app, redirect, abort
-from buildingTools import uploader
+from ardublocklyserver import uploader
 # Python 2 and 3 compatibility imports
 from six import iteritems
 # This package modules
