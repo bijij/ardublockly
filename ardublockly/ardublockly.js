@@ -84,12 +84,6 @@ Ardublockly.bindActionFunctions = function () {
   Ardublockly.bindClick_('button_ide_large', function () {
     Ardublockly.ideButtonLargeAction();
   });
-  Ardublockly.bindClick_('button_ide_middle', function () {
-    Ardublockly.ideButtonMiddleAction();
-  });
-  Ardublockly.bindClick_('button_ide_left', function () {
-    Ardublockly.ideButtonLeftAction();
-  });
   Ardublockly.bindClick_('button_load_xml', Ardublockly.XmlTextareaToBlocks);
   Ardublockly.bindClick_('button_toggle_toolbox', Ardublockly.toogleToolbox);
 
@@ -171,15 +165,7 @@ Ardublockly.ideButtonLeftAction = Ardublockly.ideSendOpen;
 
 /** Initialises the IDE buttons with the default option from the server. */
 Ardublockly.initialiseIdeButtons = function () {
-  document.getElementById('button_ide_middle').title =
-    Ardublockly.getLocalStr('verifySketch');
-  document.getElementById('button_ide_large').title =
-    Ardublockly.getLocalStr('uploadSketch');
-  ArdublocklyServer.requestIdeOptions(function (jsonObj) {
-    if (jsonObj != null) {
-      Ardublockly.changeIdeButtons(jsonObj.selected);
-    } // else Null: Ardublockly server is not running, do nothing
-  });
+  document.getElementById('button_ide_large').title = 'Upload sketch to arduino.';
 };
 
 /**
@@ -189,8 +175,7 @@ Ardublockly.initialiseIdeButtons = function () {
  */
 Ardublockly.changeIdeButtons = function (value) {
   var largeButton = document.getElementById('button_ide_large');
-  var middleButton = document.getElementById('button_ide_middle');
-  var leftButton = document.getElementById('button_ide_left');
+
   var verifyTitle = Ardublockly.getLocalStr('verifySketch');
   var uploadTitle = Ardublockly.getLocalStr('uploadSketch');
   if (value === 'upload') {
@@ -795,7 +780,7 @@ var translateBlocksReturn = function (jsonObj) {
 
   if (!jsonObj['error']) {
     document.getElementById('content_xml').value = jsonObj['block_code'];
-    document.getElementById('button_load_xml').click();
+    Ardublockly.XmlTextareaToBlocks();
   }
   else {
     alert('An error has occured...')
@@ -804,7 +789,9 @@ var translateBlocksReturn = function (jsonObj) {
 
 
 Ardublockly.translateBlocks = function () {
-  ArdublocklyServer.sendCodeToServer(editor.getValue(), translateBlocksReturn);
-
+  if (confirm('Are you sure you would like to turn your code into blocks? (doing this may cause discrepancies.)')) {
+    ArdublocklyServer.sendCodeToServer(editor.getValue(), translateBlocksReturn);
+  }
   //ArdublocklyServer.sendCodeToServer(Ardublockly.generateArduino(), translateBlocksReturn);
 }
+

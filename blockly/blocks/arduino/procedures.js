@@ -23,8 +23,8 @@ Blockly.Blocks['arduino_functions'] = {
    */
   init: function() {
     this.appendDummyInput()
-        .appendField(Blockly.Msg.ARD_FUN_RUN_DECLARE);
-    this.appendStatementInput('DECLARE FUNC');
+        .appendField('Declarations:');//Blockly.Msg.ARD_FUN_RUN_DECLARE);
+    this.appendStatementInput('DECLARATIONS');
     this.appendDummyInput()
         .appendField(Blockly.Msg.ARD_FUN_RUN_SETUP);
     this.appendStatementInput('SETUP_FUNC');

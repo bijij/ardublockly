@@ -477,11 +477,11 @@ Ardublockly.contentHeightToggle = function() {
   // the content to be behind the IDE output data anyway.
   if (!outputHeader.className.match('active') && $(window).height() > 800) {
     blocks.className = 'content height_transition blocks_panel_small';
-    arduino.className = 'content height_transition content_arduino_small';
+    arduino.className = 'content height_transition content_arduino_small ace_editor ace-tm';
     xml.className = 'content height_transition content_xml_small';
   } else {
     blocks.className = 'content height_transition blocks_panel_large';
-    arduino.className = 'content height_transition content_arduino_large';
+    arduino.className = 'content height_transition content_arduino_large ace_editor ace-tm';
     xml.className = 'content height_transition content_xml_large';
   }
 

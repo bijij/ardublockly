@@ -1,5 +1,6 @@
 <!DOCTYPE HTML>
 <html>
+
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,7 +14,7 @@
   <link rel="stylesheet" href="ardublockly.css" media="screen,projection">
 
   <!-- Ardublockly - These three files contain the compress version -->
-   <!-- <script src="../blockly/blockly_compressed.js"></script> -->
+  <!-- <script src="../blockly/blockly_compressed.js"></script> -->
   <script src="../blockly/blocks_compressed.js"></script>
   <script src="../blockly/arduino_compressed.js"></script>
   <!-- To use the uncompressed version comment out the above and comment in the ones below  -->
@@ -98,8 +99,10 @@
         <li id="menu_save"><a href="#"><span class="translatable_save">Save</span><i class="mdi-file-file-download left"></i></a></li>
         <li id="menu_delete"><a href="#"><span class="translatable_deleteAll">Delete All</span><i class="mdi-action-delete left"></i></a></li>
         <li id="menu_settings"><a href="#"><span class="translatable_settings">Settings</span><i class="mdi-action-settings left"></i></a></li>
-        <li id="menu_bug"><a href="https://github.com/carlosperate/ardublockly/wiki" target="_blank"><span class="translatable_documentation">Documentation</span><i class="mdi-action-help left"></i></a></li>
-        <li id="menu_bug"><a href="http://github.com/carlosperate/ardublockly/issues" target="_blank"><span class="translatable_reportBug">Report Bug</span><i class="mdi-action-bug-report left"></i></a></li>
+        <li id="menu_bug"><a href="https://github.com/carlosperate/ardublockly/wiki" target="_blank"><span class="translatable_documentation">Documentation</span><i
+              class="mdi-action-help left"></i></a></li>
+        <li id="menu_bug"><a href="http://github.com/carlosperate/ardublockly/issues" target="_blank"><span class="translatable_reportBug">Report
+              Bug</span><i class="mdi-action-bug-report left"></i></a></li>
       </ul>
     <li class="no-padding">
       <ul class="collapsible collapsible-accordion">
@@ -118,53 +121,61 @@
       </ul>
     </li>
     <li class="no-padding side-menu-end">&nbsp;</li>
-  </ul> 
+  </ul>
 
   <!-- Content -->
   <div class="container">
     <div class="row">
       <div class="col s12 m12 l8" style="position:relative">
         <!-- Toolbox visibility button -->
-        <a id="button_toggle_toolbox" class="waves-effect waves-light btn-flat button_toggle_toolbox_off" style="display: none"><i id="button_toggle_toolbox_icon" class="mdi-action-visibility-off"></i></a>
+        <a id="button_toggle_toolbox" class="waves-effect waves-light btn-flat button_toggle_toolbox_off" style="display: none"><i
+            id="button_toggle_toolbox_icon" class="mdi-action-visibility-off"></i></a>
         <!-- Arduino IDE action buttons -->
         <div id="ide_buttons_wrapper">
-          <a id="button_ide_left" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_yellow"><i id="button_ide_left_icon" class="mdi-action-open-in-browser"></i></a>
-          <a id="button_ide_middle" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_teal"><i id="button_ide_middle_icon" class="mdi-navigation-check"></i></a>
-          <a id="button_ide_large" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_orange"><i id="button_ide_large_icon" class="mdi-av-play-arrow"></i></a>
+          <a id="button_ide_large" class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_orange"><i
+              id="button_ide_large_icon" class="mdi-av-play-arrow"></i></a>
           <div id="button_ide_large_spinner" class="preloader-wrapper active ide_loader" style="display:none">
             <div class="spinner-layer spinner-orange">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
+              </div>
+              <div class="gap-patch">
                 <div class="circle"></div>
-              </div><div class="circle-clipper right">
+              </div>
+              <div class="circle-clipper right">
                 <div class="circle"></div>
               </div>
             </div>
             <div class="spinner-layer spinner-dark-teal">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
+              </div>
+              <div class="gap-patch">
                 <div class="circle"></div>
-              </div><div class="circle-clipper right">
+              </div>
+              <div class="circle-clipper right">
                 <div class="circle"></div>
               </div>
             </div>
             <div class="spinner-layer spinner-yellow">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
+              </div>
+              <div class="gap-patch">
                 <div class="circle"></div>
-              </div><div class="circle-clipper right">
+              </div>
+              <div class="circle-clipper right">
                 <div class="circle"></div>
               </div>
             </div>
             <div class="spinner-layer spinner-light-teal">
               <div class="circle-clipper left">
                 <div class="circle"></div>
-              </div><div class="gap-patch">
+              </div>
+              <div class="gap-patch">
                 <div class="circle"></div>
-              </div><div class="circle-clipper right">
+              </div>
+              <div class="circle-clipper right">
                 <div class="circle"></div>
               </div>
             </div>
@@ -183,11 +194,18 @@
             <div class="collapsible-header active">
               <span class="collapsible_logo">{ }</span>
               <span class="translatable_arduinoSourceCode">Arduino Source Code</span>
-              <span class="translate_span"><a class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_orange"><i id="translate_button" class="mdi-av-play-arrow"></i></a></span>
+              <span class="translate_span">
+
+                <a class="waves-effect waves-light waves-circle btn-floating z-depth-1-half arduino_green">
+                  <i id="translate_button" class="mdi-navigation-refresh" title="Convert to blocks"></i></a>
+              </span>
+
             </div>
             <div class="collapsible-body">
-              <div><pre id="content_arduino" class="content content_height_transition content_arduino_large" >
-              </pre></div>
+              <div>
+                <pre id="content_arduino" class="content content_height_transition content_arduino_large">
+              </pre>
+              </div>
               <script src="./ace/ace.js" type="text/javascript" charset="utf-8"></script>
             </div>
           </li>
@@ -197,7 +215,8 @@
               <span class="translatable_blocksXml">Blocks XML</span>
             </div>
             <div class="collapsible-body" style="position:relative" id="xml_collapsible_body">
-              <a class="btn-floating btn-large waves-effect waves-light arduino_teal z-depth-1-half" id="button_load_xml"><i class="mdi-action-extension"></i></a>
+              <a class="btn-floating btn-large waves-effect waves-light arduino_teal z-depth-1-half" id="button_load_xml"><i
+                  class="mdi-action-extension"></i></a>
               <textarea id="content_xml" class="content content_height_transition content_xml_large" wrap="soft"></textarea>
             </div>
           </li>
@@ -279,7 +298,7 @@
   <div id="gen_alert" class="modal modal_small modal-fixed-footer">
     <div class="modal-content">
       <h5 id="gen_alert_title">Empty Alert</h4>
-      <p><span id="gen_alert_body">Empty alert text</span></p>
+        <p><span id="gen_alert_body">Empty alert text</span></p>
     </div>
     <div class="modal-footer">
       <a id="gen_alert_ok_link" href="#" class="waves-effect btn-flat modal-close"><span class="translatable_okay">Okay</span></a>
@@ -306,9 +325,12 @@
         <h4 id="gen_alert_title"><span class="translatable_noServerTitle">Ardublockly app not running</span></h4>
       </div>
       <div class="translatable_noServerBody">
-        <p>For all the Ardublockly features to be enabled, the Ardublockly desktop application must be running locally on your computer.</p>
-        <p>If you are using an online version you will not be able to configure the settings nor load the blocks code into an Arduino.</p>
-        <p>Installation instruction can be found in the <a href="https://github.com/carlosperate/ardublockly">Ardublockly repository</a>.</p>
+        <p>For all the Ardublockly features to be enabled, the Ardublockly desktop application must be running locally
+          on your computer.</p>
+        <p>If you are using an online version you will not be able to configure the settings nor load the blocks code
+          into an Arduino.</p>
+        <p>Installation instruction can be found in the <a href="https://github.com/carlosperate/ardublockly">Ardublockly
+            repository</a>.</p>
         <p>If you have Ardublockly already installed, make sure the application is running correctly.</p>
       </div>
     </div>
@@ -339,15 +361,26 @@
     window.addEventListener('load', function load(event) {
       window.removeEventListener('load', load, false);
       Ardublockly.init();
+      
+      // Set default blocks
+      document.getElementById('content_xml').value = `<xml xmlns="http://www.w3.org/1999/xhtml">
+<block type="arduino_functions"></block>
+</xml>`;
+      Ardublockly.XmlTextareaToBlocks();
     });
   </script>
-  
+
+
   <!-- ace code editor-->
   <script>
     var editor = ace.edit("content_arduino");
     editor.setTheme("ace/theme/sql_server");
     editor.session.setMode("ace/mode/c_cpp");
-</script>
-  
+    editor.setAutoScrollEditorIntoView(true);
+
+
+  </script>
+
 </body>
+
 </html>
