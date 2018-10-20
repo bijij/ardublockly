@@ -424,7 +424,7 @@ def handler_code_post():
     std_out, err_out = '', ''
     success = True
     exit_code = 0
-    ide_mode = 'unknown'
+    ide_mode = 'upload'
 
     try:
         settingsDict = handler_settings_get_individual("serial")
