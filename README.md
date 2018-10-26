@@ -1,5 +1,5 @@
-# Ardublockly
-Ardublockly is a visual programming editor for Arduino. It is based on Google's [Blockly][1], which has been forked to generate [Arduino][15] code.
+# Alchemy
+Alchemy is a visual programming editor for Arduino. It is based on Carlosperate's [Ardublockly][1], which has been forked to generate [Arduino][15] code.
 
 The `ArdublocklyServer` Python package initialises a local server to be able to compile and load the Arduino code using the [Arduino IDE][2].
 
@@ -15,7 +15,7 @@ This is all packaged in a self contained executable desktop application for Wind
 * Compatible with a wide range of official Arduino Boards
 * Works on Windows / Linux / Mac OS X
 
-Ardublockly is still under development and a few features are not yet implemented. A to-do list can be found in the [TODO.md][3] file.
+Alchemy is still under development and a few features are not yet implemented. A to-do list can be found in the [TODO.md][3] file.
 
 Currently tested under Windows with Python 2.7 and 3.4 and in Linux and MacOS X with Python 2.7.
 
@@ -58,14 +58,12 @@ This will work on Windows, Linux (including ARM) and Mac OS X, with Python >2.7 
 
 
 ## Running
-1. [Install Ardublockly][5].
-2. Install the [Arduino IDE][2] version 1.6.x or higher (latest version is always recommended).
-3. Run Ardublockly as defined in your installation method.
-3. Configure Ardublockly to locate the Arduino IDE [following these instructions][6].
+1. [Install Alchemy[5].
+2. Run Alchmey as defined in your installation method.
 
 
 ## Online Demos
-A demo of the latest release of Ardublockly main interface can be found in the following two links (to load the code into an Arduino it requires the full Ardublockly application to be downloaded and run on your computer):
+A demo of the latest release of the original Ardublockly main interface can be found in the following two links (to load the code into an Arduino it requires the full Ardublockly application to be downloaded and run on your computer):
 
 #### [Ardublockly][10]
 ![WebApp screenshot responsive design][web_screenshot_responsive]
@@ -107,7 +105,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 
-[1]: https://developers.google.com/blockly/
+[1]: https://github.com/carlosperate/ardublockly
 [2]: http://www.arduino.cc/en/main/software/
 [3]: TODO.md
 [4]: https://github.com/carlosperate/ardublockly/releases/
