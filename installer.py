@@ -46,6 +46,7 @@ if src.status_code == 200:
 	dirs = os.listdir(os.path.join(os.getcwd(), path))
 	innerPath = os.path.join(path, dirs[0])
 
+	rmtree("buildingTools")
 	bt = zipfile.ZipFile(os.path.join(innerPath, toolsSrc))
 	bt.extractall(innerPath)
 else:
